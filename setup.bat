@@ -1,11 +1,12 @@
 @echo off
 setlocal
+@REM Shift-JIS
 chcp 65001
 
 set "reg_key=HKLM\SOFTWARE\7-Zip"
 set "ZIP_PATH="
 
-REM 7-Zipがインストールされているか確認
+REM 7-Zipがインストールされているか
 reg query "%reg_key%" >nul 2>&1
 if %errorlevel%==0 (
     REM 7-ZipのPathを取得
@@ -13,7 +14,7 @@ if %errorlevel%==0 (
         set "ZIP_PATH=%%B"
     )
 
-    REM 値の確認
+    @REM レジストリの値からインストールされているか確認
     if not defined ZIP_PATH (
         echo 7-Zipがインストールされていません。インストールを開始します。
         goto install
@@ -24,7 +25,7 @@ if %errorlevel%==0 (
 )
 
 :install
-REM wingetで7-Zipをインストール
+@REM 7-Zipインストール
 winget install --id 7zip.7zip -e
 if %errorlevel%==0 (
     echo 7-Zipのインストールが完了しました。
@@ -54,12 +55,12 @@ move /Y "Voicevox" "C:/"
 @REM パッケージファイルの削除
 del "%FILENAME_1%" "%FILENAME_2%"
 
-REM 起動用のBATファイルをダウンロード
+@REM 起動用のBATファイルをダウンロード
 set "FILENAME_SERVER=voicevox_server.bat"
 set "DOWNLOAD_URL_SERVER=https://github.com/suzuuuuu09/unity-auto-build-voicevox-server/releases/download/0.2.0/%FILENAME_SERVER%"
 curl -L -o "%FILENAME_SERVER%" "%DOWNLOAD_URL_SERVER%"
 
-REM ファイルの移動
+@REM ファイルの移動
 move /Y "%FILENAME_SERVER%" "C:/Voicevox/"
 echo セットアップが完了しました。
 
