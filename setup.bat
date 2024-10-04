@@ -1,55 +1,26 @@
 @echo off
-
-@REM set "ZIP_PATH=C:\Program Files\7-Zip\7z.exe"
-
-REM 7-Zip‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚é‚©Šm”F
-@REM if not exist "%ZIP_PATH%" (
-@REM     :RESTART
-@REM     set /p yn_check="7-Zip‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚Ü‚¹‚ñBƒCƒ“ƒXƒg[ƒ‹‚µ‚Ü‚·‚©H (y/n) "
-    
-@REM     REM “ü—Í‚Ì¬•¶š‰»‚Å”»’è‚ğŠÈ‘f‰»
-@REM     if /i "%yn_check%"=="y" (
-@REM         set "ZIP_URL=https://www.7-zip.org/a/7z1900-x64.exe"
-@REM         set "ZIP_INSTALLER=7z_installer.exe"
-@REM         curl -L -o "%TEMP%\%ZIP_INSTALLER%" "%ZIP_URL%"
-@REM         start /wait "" "%TEMP%\%ZIP_INSTALLER%" /S
-@REM     ) else if /i "%yn_check%"=="n" (
-@REM         echo 7-Zip‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚È‚¢‚½‚ßAÀs‚ğI—¹‚µ‚Ü‚·B
-@REM         pause
-@REM         exit /b
-@REM     ) else (
-@REM         echo –³Œø‚È“ü—Í‚Å‚·B‚à‚¤ˆê“x“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B
-@REM         goto RESTART
-@REM     )
-@REM )
+chcp 65001
 
 set "FILENAME_1=voicevox_engine-windows-nvidia-0.19.1.7z.001"
 set "DOWNLOAD_URL_1=https://github.com/VOICEVOX/voicevox_engine/releases/download/0.19.1/%FILENAME_1%"
 
-@REM ƒpƒbƒP[ƒW1ƒ_ƒEƒ“ƒ[ƒh
 curl -L -o "%FILENAME_1%" "%DOWNLOAD_URL_1%"
 
-@REM ƒpƒbƒP[ƒW2‚Ìƒ_ƒEƒ“ƒ[ƒh‚ÍƒRƒƒ“ƒgƒAƒEƒg’†
 set "FILENAME_2=voicevox_engine-windows-nvidia-0.19.1.7z.002"
 set "DOWNLOAD_URL_2=https://github.com/VOICEVOX/voicevox_engine/releases/download/0.19.1/%FILENAME_2%"
 curl -L -o "%FILENAME_2%" "%DOWNLOAD_URL_2%"
 
-@REM ƒtƒ@ƒCƒ‹‚Ì‰ğ“€
 "C:\Program Files\7-Zip\7z.exe" x "%FILENAME_1%" -o"Voicevox\"
 
-@REM ƒtƒ@ƒCƒ‹‚ÌˆÚ“®
 ren "Voicevox\windows-nvidia" "server"
 move /Y "Voicevox" "C:/"
 
-@REM ƒpƒbƒP[ƒWƒtƒ@ƒCƒ‹‚Ìíœ
 del "%FILENAME_1%" "%FILENAME_2%"
 
-REM ‹N“®—p‚ÌBATƒtƒ@ƒCƒ‹‚ğƒ_ƒEƒ“ƒ[ƒh
 set "FILENAME_SERVER=voicevox_server.bat"
-set "DOWNLOAD_URL_SERVER=https://github.com/suzuuuuu09/unity-auto-build-voicevox-server/releases/download/0.1.0/%FILENAME_SERVER%"
+set "DOWNLOAD_URL_SERVER=https://github.com/suzuuuuu09/unity-auto-build-voicevox-server/releases/download/0.2.0/%FILENAME_SERVER%"
 curl -L -o "%FILENAME_SERVER%" "%DOWNLOAD_URL_SERVER%"
 
-REM ƒtƒ@ƒCƒ‹‚ÌˆÚ“®
 move /Y "%FILENAME_SERVER%" "C:/Voicevox/"
-echo ƒZƒbƒgƒAƒbƒv‚ªŠ®—¹‚µ‚Ü‚µ‚½B
+echo ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ãŒå®Œäº†ã—ã¾ã—ãŸã€‚
 pause
