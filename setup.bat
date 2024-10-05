@@ -1,68 +1,74 @@
+@REM UTF-8
+chcp 65001
 @echo off
 setlocal
-@REM Shift-JIS
-chcp 65001
 
 set "reg_key=HKLM\SOFTWARE\7-Zip"
 set "ZIP_PATH="
 
-REM 7-ZipãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹ã‹
+REM 7-Zip‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚é‚©
 reg query "%reg_key%" >nul 2>&1
 if %errorlevel%==0 (
-    REM 7-Zipã®Pathã‚’å–å¾—
+    REM 7-Zip‚ÌPath‚ðŽæ“¾
     for /f "tokens=2*" %%A in ('reg query "%reg_key%" /v Path 2^>nul') do (
         set "ZIP_PATH=%%B"
     )
 
-    @REM ãƒ¬ã‚¸ã‚¹ãƒˆãƒªã®å€¤ã‹ã‚‰ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹ã‹ç¢ºèª
+    @REM ƒŒƒWƒXƒgƒŠ‚Ì’l‚©‚çƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚é‚©Šm”F
     if not defined ZIP_PATH (
-        echo 7-ZipãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’é–‹å§‹ã—ã¾ã™ã€‚
+        echo 7-Zip‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚Ü‚¹‚ñBƒCƒ“ƒXƒg[ƒ‹‚ðŠJŽn‚µ‚Ü‚·B
         goto install
     )
 ) else (
-    echo 7-ZipãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’é–‹å§‹ã—ã¾ã™ã€‚
+    echo 7-Zip‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚Ü‚¹‚ñBƒCƒ“ƒXƒg[ƒ‹‚ðŠJŽn‚µ‚Ü‚·B
     goto install
 )
 
 :install
-@REM 7-Zipã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«
+@REM 7-ZipƒCƒ“ƒXƒg[ƒ‹
 winget install --id 7zip.7zip -e
 if %errorlevel%==0 (
-    echo 7-Zipã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãŒå®Œäº†ã—ã¾ã—ãŸã€‚
+    echo 7-Zip‚ÌƒCƒ“ƒXƒg[ƒ‹‚ªŠ®—¹‚µ‚Ü‚µ‚½B
 ) else (
-    echo 7-Zipã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã«å¤±æ•—ã—ã¾ã—ãŸã€‚
+    echo 7-Zip‚ÌƒCƒ“ƒXƒg[ƒ‹‚ÉŽ¸”s‚µ‚Ü‚µ‚½B
     pause
     exit /b
 )
 
-@REM ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸1
+@REM ƒpƒbƒP[ƒW1
 set "FILENAME_1=voicevox_engine-windows-nvidia-0.19.1.7z.001"
 set "DOWNLOAD_URL_1=https://github.com/VOICEVOX/voicevox_engine/releases/download/0.19.1/%FILENAME_1%"
+del "%FILENAME_1%"
 curl -L -o "%FILENAME_1%" "%DOWNLOAD_URL_1%"
 
-@REM ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸2
+@REM ƒpƒbƒP[ƒW2
 set "FILENAME_2=voicevox_engine-windows-nvidia-0.19.1.7z.002"
 set "DOWNLOAD_URL_2=https://github.com/VOICEVOX/voicevox_engine/releases/download/0.19.1/%FILENAME_2%"
+del "%FILENAME_2%"
 curl -L -o "%FILENAME_2%" "%DOWNLOAD_URL_2%"
 
-@REM ãƒ•ã‚¡ã‚¤ãƒ«ã®è§£å‡
+@REM ƒtƒ@ƒCƒ‹‚Ì‰ð“€
 "%ZIP_PATH%\7z.exe" x "%FILENAME_1%" -o"Voicevox\"
 
-@REM ãƒ•ã‚¡ã‚¤ãƒ«ã®ç§»å‹•
+@REM ƒtƒ@ƒCƒ‹‚ÌˆÚ“®
 ren "Voicevox\windows-nvidia" "server"
 move /Y "Voicevox" "C:/"
 
-@REM ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ãƒ•ã‚¡ã‚¤ãƒ«ã®å‰Šé™¤
+@REM ƒpƒbƒP[ƒWƒtƒ@ƒCƒ‹‚Ìíœ
 del "%FILENAME_1%" "%FILENAME_2%"
 
-@REM èµ·å‹•ç”¨ã®BATãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰
+@REM ‹N“®—p‚ÌBATƒtƒ@ƒCƒ‹‚ðƒ_ƒEƒ“ƒ[ƒh
 set "FILENAME_SERVER=voicevox_server.bat"
 set "DOWNLOAD_URL_SERVER=https://github.com/suzuuuuu09/unity-auto-build-voicevox-server/releases/download/0.2.0/%FILENAME_SERVER%"
-curl -L -o "%FILENAME_SERVER%" "%DOWNLOAD_URL_SERVER%"
 
-@REM ãƒ•ã‚¡ã‚¤ãƒ«ã®ç§»å‹•
+@REM ‹N“®—p‚ÌBATƒtƒ@ƒCƒ‹‚ª‘¶Ý‚µ‚È‚¢ê‡ƒ_ƒEƒ“ƒ[ƒh
+if not exist %FILENAME_SERVER% (
+    curl -L -o "%FILENAME_SERVER%" "%DOWNLOAD_URL_SERVER%"
+)
+
+@REM ƒtƒ@ƒCƒ‹‚ÌˆÚ“®
 move /Y "%FILENAME_SERVER%" "C:/Voicevox/"
-echo ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ãŒå®Œäº†ã—ã¾ã—ãŸã€‚
+echo ƒZƒbƒgƒAƒbƒv‚ªŠ®—¹‚µ‚Ü‚µ‚½B
 
 endlocal
 pause
