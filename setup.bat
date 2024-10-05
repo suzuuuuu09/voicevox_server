@@ -56,10 +56,9 @@ if exist "Voicevox" (
     rmdir "Voicevox" /s /q
 )
 
-"%ZIP_PATH%\7z.exe" x "%FILENAME_1%" -o"Voicevox\"
+"%ZIP_PATH%\7z.exe" x "%FILENAME_1%" -o"C:/Voicevox"
 
-ren "Voicevox\windows-nvidia" "server"
-move /Y "Voicevox" "C:/"
+ren "C:/Voicevox/windows-nvidia" "server"
 
 del "%FILENAME_1%" "%FILENAME_2%"
 
