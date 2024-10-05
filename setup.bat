@@ -63,7 +63,7 @@ ren "C:/Voicevox/windows-nvidia" "server"
 del "%FILENAME_1%" "%FILENAME_2%"
 
 set "FILENAME_SERVER=voicevox_server.bat"
-set "DOWNLOAD_URL_SERVER=https://github.com/suzuuuuu09/unity-auto-build-voicevox-server/releases/download/0.2.0/%FILENAME_SERVER%"
+set "DOWNLOAD_URL_SERVER=https://github.com/suzuuuuu09/unity-auto-build-voicevox-server/releases/download/latest/%FILENAME_SERVER%"
 
 if not exist %FILENAME_SERVER% (
     curl -L -o "%FILENAME_SERVER%" "%DOWNLOAD_URL_SERVER%"
